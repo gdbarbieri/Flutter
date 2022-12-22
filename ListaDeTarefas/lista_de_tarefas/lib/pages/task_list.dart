@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lista_de_tarefas/models/tasks.dart';
+import 'package:lista_de_tarefas/repositories/tasks_repositories.dart';
 
 import '../widgets/task_list_item.dart';
 
@@ -11,8 +12,9 @@ class TodoListPage extends StatefulWidget {
 }
 
 class _TodoListPageState extends State<TodoListPage> {
-  final TextEditingController tasksController =
-      TextEditingController(); //controlador para conseguir pegar o texto do campo de texto
+  final TextEditingController tasksController = TextEditingController(); //controlador para conseguir pegar o texto do campo de texto
+  final TasksRepository tasksRepository = TasksRepository();
+
 
   List<Tasks> tasks = [];
   Tasks? deletedTasks;
@@ -55,6 +57,7 @@ class _TodoListPageState extends State<TodoListPage> {
                               newTasks); //adiciona o que está escrito no campo de texto , dentro da lista criada acima
                         });
                         tasksController.clear();
+                        tasksRepository.saveTaskList(tasks);
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Color.fromARGB(255, 93, 170, 6),
